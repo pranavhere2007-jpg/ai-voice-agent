@@ -1,0 +1,113 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: #1e293b;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  color: #38bdf8;
+}
+
+section {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #38bdf8;
+  color: black;
+  text-decoration: none;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.flow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flow div {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1e293b;
+}
+
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-box {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+}
+
+.arrow {
+  font-size: 30px;
+  margin: 10px 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.arrow.visible {
+  opacity: 1;
+}
+
+#scrollHint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 41, 59, 0.8);
+  color: #38bdf8;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(8px);
+  animation: bounce 1.5s infinite;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+
+/* Smooth bounce */
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -8px); }
+}

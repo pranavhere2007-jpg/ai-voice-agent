@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Flow</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* Animation styles */
+.phone {
+  font-size: 60px;
+  animation: vibrate 1s ease-in-out;
+}
+
+@keyframes vibrate {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.chat {
+  display: none;
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  margin-left: 20px;
+  max-width: 300px;
+}
+
+.step {
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Interactive System Flow</h1>
+  <a href="index.html" class="btn">← Back</a>
+</header>
+
+<section>
+  <h2>Live Call Simulation</h2>
+
+  <div style="display:flex; align-items:center;">
+    <div class="phone">📞</div>
+    <div id="chat1" class="chat">
+      "Hi, I want to book a dentist appointment tomorrow morning."
+    </div>
+  </div>
+
+</section>
+
+<section id="flowSection">
+  <h2>What Happens Behind the Scenes</h2>
+
+  <div class="flow-container">
+
+    <div class="step step-box" id="step1">
+      🤖 <strong>AI Understands Intent</strong><br>
+      Detects: Book Appointment
+    </div>
+    <div class="arrow">⬇️</div>
+
+    <div class="step step-box" id="step2">
+      📅 <strong>Extracts Details</strong><br>
+      Date: Tomorrow<br>
+      Time: Morning
+    </div>
+    <div class="arrow">⬇️</div>
+
+    <div class="step step-box" id="step3">
+      ⚙️ <strong>Lambda Processes Request</strong><br>
+      Converts natural language → exact datetime
+    </div>
+    <div class="arrow">⬇️</div>
+
+    <div class="step step-box" id="step4">
+      📆 <strong>Checks Calendar</strong><br>
+      Finds available slots
+    </div>
+    <div class="arrow">⬇️</div>
+
+    <div class="step step-box" id="step5">
+      💬 <strong>AI Responds</strong><br>
+      "I have 10:30 AM available. Confirm?"
+    </div>
+    <div class="arrow">⬇️</div>
+
+    <div class="step step-box" id="step6">
+      ✅ <strong>Booking Confirmed</strong><br>
+      Appointment saved + reminder scheduled
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Step 1: show chat after phone rings
+setTimeout(() => {
+  document.getElementById("chat1").style.display = "block";
+}, 1000);
+
+// Sequential animation of steps
+const steps = document.querySelectorAll(".step");
+
+steps.forEach((step, index) => {
+  setTimeout(() => {
+    step.classList.add("visible");
+  }, 2000 + index * 1000);
+});
+</script>
+
+</body>
+</html>
