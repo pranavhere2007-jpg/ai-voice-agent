@@ -1,242 +1,138 @@
+<!-- ========================= index.html ========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI Voice Appointment Agent</title>
-<link rel="stylesheet" href="styles.css">
-
-<style>
-
-/* 🌌 Animated gradient background */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
-  background: linear-gradient(-45deg, #0f172a, #1e293b, #020617, #0ea5e9);
-  background-size: 400% 400%;
-  animation: gradientBG 12s ease infinite;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% }
-  50% { background-position: 100% }
-  100% { background-position: 0% }
-}
-
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 120px 20px;
-}
-
-.hero h1 {
-  font-size: 3rem;
-}
-
-.typing {
-  color: #38bdf8;
-  font-size: 1.3rem;
-  margin-top: 10px;
-  height: 30px;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 25px;
-  background: #38bdf8;
-  color: black;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.1);
-}
-
-/* Sections */
-section {
-  padding: 80px 20px;
-  max-width: 900px;
-  margin: auto;
-  text-align: center;
-}
-
-/* Scroll animation */
-.fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Flow cards */
-.flow {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-
-.card {
-  background: rgba(255,255,255,0.05);
-  padding: 20px;
-  margin: 10px;
-  border-radius: 12px;
-  width: 180px;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-10px) scale(1.05);
-}
-
-/* Floating chat demo */
-.chatbox {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 10px;
-  width: 250px;
-  font-size: 0.9rem;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  animation: float 3s infinite ease-in-out;
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA — Autonomous Reception</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-<a href = "google.com">Go To Google</a>
-<!-- HERO -->
-<div class="hero">
-  <h1>AI Voice Appointment Agent</h1>
-  <div class="typing" id="typing"></div>
-  <a href="details.html" class="btn">Explore How It Works</a>
-</div>
+  <div class="bg-animation"></div>
 
-<!-- PROBLEM -->
-<section class="fade">
-  <h2>The Problem</h2>
-  <p>No-shows and manual scheduling cost businesses thousands every year.</p>
-</section>
+  <header class="navbar">
+    <div class="logo">AURA 🤖</div>
+    <nav>
+      <!--<a class = "redirect" href="#features">Features</a>-->
+      <a class = "redirect" href="details.html">Details</a>
+    </nav>
+  </header>
 
-<!-- SOLUTION -->
-<section class="fade">
-  <h2>Our Solution</h2>
-  <p>An AI receptionist that answers calls, books appointments, and sends reminders — 24/7.</p>
-</section>
+  <section class="hero">
+    <h1 class="glow">Your Autonomous Front Desk</h1>
+    <p>AI that talks, thinks, and optimizes your business</p>
+    <button onclick="redirect()">Explore</button>
+  </section>
 
-<!-- HOW IT WORKS -->
-<section class="fade">
-  <h2>How It Works</h2>
+  <section id="features" class="features">
 
-  <div class="flow">
-    <div class="card">📞 Call</div>
-    <div class="card">🤖 AI Talks</div>
-    <div class="card">📅 Checks</div>
-    <div class="card">✅ Books</div>
-  </div>
-</section>
+    <!-- Smart Scheduling -->
+    <div class="card">
+      <h3>📅 Smart Scheduling</h3>
+      <div class="mock">
+        <p id="schedule">Next available: 10:00 AM</p>
+        <button onclick="optimize()">Optimize Schedule</button>
+      </div>
+    </div>
 
-<!-- IMPACT -->
-<section class="fade">
-  <h2>Impact</h2>
-  <p>Reduce no-shows by 40% and save up to $60K/year.</p>
-</section>
+    <!-- No Show Predictor -->
+    <div class="card">
+      <h3>📉 No-Show AI</h3>
+      <div class="mock">
+        <p>Probability: <span id="prob">20%</span></p>
+        <div class="bar"><div id="barFill"></div></div>
+        <button onclick="predict()">Analyze</button>
+      </div>
+    </div>
 
-<!-- FLOATING CHAT DEMO -->
-<div class="chatbox" id="chatbox">
-  <strong>User:</strong> Book appointment tomorrow<br><br>
-  <strong>AI:</strong> Checking availability...
-</div>
+    <!-- Voice AI -->
+    <div class="card">
+      <h3>🎙️ Voice AI</h3>
+      <div class="mock center">
+        <div id="voiceUI" class="mic" onclick="startVoice()">🎤</div>
+        <p id="voiceText">Tap to speak</p>
+      </div>
+    </div>
 
-<footer>
-  <p>Team Shadow | Hackathon Project</p>
-</footer>
+    <!-- Waitlist -->
+    <div class="card">
+      <h3>🔁 Waitlist Automation</h3>
+      <div class="mock">
+        <ul id="waitlist">
+          <li>John</li>
+          <li>Sarah</li>
+        </ul>
+        <button onclick="fillSlot()">Auto Fill Slot</button>
+      </div>
+    </div>
+
+    <!-- Analytics -->
+    <div class="card">
+      <h3>📊 Analytics</h3>
+      <div class="mock">
+        <div class="chart">
+          <div class="barcol" style="height:40%"></div>
+          <div class="barcol" style="height:70%"></div>
+          <div class="barcol" style="height:50%"></div>
+          <div class="barcol" style="height:90%"></div>
+          <div class="barcol" style="height:60%"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>AURA © 2026</footer>
 
 <script>
-
-// ✨ Typing animation
-const text = [
-  "Answering calls like a human...",
-  "Booking appointments instantly...",
-  "Reducing no-shows with AI..."
-];
-
-let i = 0, j = 0, current = "", isDeleting = false;
-
-function type() {
-  current = text[i];
-  
-  if (!isDeleting) {
-    document.getElementById("typing").innerHTML = current.substring(0, j++);
-    if (j > current.length) {
-      isDeleting = true;
-      setTimeout(type, 1000);
-      return;
-    }
-  } else {
-    document.getElementById("typing").innerHTML = current.substring(0, j--);
-    if (j === 0) {
-      isDeleting = false;
-      i = (i + 1) % text.length;
-    }
-  }
-
-  setTimeout(type, isDeleting ? 40 : 80);
+function redirect(){
+  window.location.replace("details.html")
 }
 
-type();
+function scrollToFeatures(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }
 
-// 👀 Scroll animations
-const fades = document.querySelectorAll(".fade");
+function optimize(){
+  document.getElementById('schedule').innerText = "Optimized: 9:30 AM (Higher efficiency)";
+}
 
-window.addEventListener("scroll", () => {
-  fades.forEach(fade => {
-    const top = fade.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      fade.classList.add("show");
-    }
-  });
-});
+function predict(){
+  let val = Math.floor(Math.random()*100);
+  document.getElementById('prob').innerText = val + "%";
+  document.getElementById('barFill').style.width = val + "%";
+}
 
-// 💬 Fake chat progression
-setTimeout(() => {
-  document.getElementById("chatbox").innerHTML =
-    "<strong>User:</strong> Book appointment tomorrow<br><br><strong>AI:</strong> I found a slot at 5 PM. Confirm?";
-}, 3000);
+function fillSlot(){
+  let li = document.createElement('li');
+  li.innerText = "Auto-filled user accepted slot";
+  document.getElementById('waitlist').appendChild(li);
+}
 
-setTimeout(() => {
-  document.getElementById("chatbox").innerHTML +=
-    "<br><br><strong>User:</strong> Yes";
-}, 6000);
+function startVoice(){
+  let voiceUI = document.getElementById('voiceUI');
+  let text = document.getElementById('voiceText');
 
-setTimeout(() => {
-  document.getElementById("chatbox").innerHTML +=
-    "<br><br><strong>AI:</strong> Appointment confirmed ✅";
-}, 9000);
+  voiceUI.classList.remove('mic');
+  voiceUI.classList.add('wave');
+  voiceUI.innerText = "";
+  text.innerText = "Listening...";
 
+  setTimeout(()=>{
+    text.innerText = "Processing...";
+  },1500);
+
+  setTimeout(()=>{
+    let date = new Date();
+    date.setDate(date.getDate() + Math.floor(Math.random()*5));
+    let time = Math.floor(Math.random()*12)+8;
+    text.innerText = `Slot confirmed at ${date.toDateString()} ${time}:00`;
+
+    voiceUI.classList.remove('wave');
+    voiceUI.classList.add('mic');
+    voiceUI.innerText = "🎤";
+  },3000);
+}
 </script>
-<div id="scrollHint">
-  ↓ Scroll to explore
-</div>
+
 </body>
 </html>
