@@ -1,125 +1,335 @@
+<!-- ========================= details.html (FINAL BOSS MODE) ========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Interactive Flow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA - System Details</title>
 <link rel="stylesheet" href="styles.css">
 
 <style>
-/* Animation styles */
-.phone {
-  font-size: 60px;
-  animation: vibrate 1s ease-in-out;
+
+body {
+  background: radial-gradient(circle at left, #0a552e, #5d0c0c);
 }
 
-@keyframes vibrate {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+.section {
+  padding: 60px 20px;
+  text-align:center;
 }
 
-.chat {
-  display: none;
-  background: #1e293b;
+/* ===== Log Simulation ===== */
+.log-box {
+  background: black;
   padding: 15px;
   border-radius: 10px;
-  margin-left: 20px;
-  max-width: 300px;
+  height: 160px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 13px;
+  font-family: monospace;
+  box-shadow: 0 0 15px rgba(34,197,94,0.3);
 }
 
-.step {
-  margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
+/* Typing cursor effect */
+.log-box::after {
+  content: "|";
+  animation: blink 1s infinite;
+  margin-left: 2px;
 }
 
-.step.visible {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
 }
+
+/* ===== Buttons ===== */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  cursor: pointer;
+  margin-top: 10px;
+}
+/* ===== SLIDESHOW UPGRADE ===== */
+
+.slide {
+  display:none;
+  max-width:900px;
+  margin:40px auto;
+  padding:30px;
+  border-radius:20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(34,197,94,0.15);
+  position:relative;
+  overflow:hidden;
+}
+
+.slide::before {
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background: radial-gradient(circle, rgba(34,197,94,0.15), transparent 70%);
+  animation: glowMove 6s linear infinite;
+}
+
+@keyframes glowMove {
+  0% { transform: translate(-25%, -25%); }
+  50% { transform: translate(25%, 25%); }
+  100% { transform: translate(-25%, -25%); }
+}
+
+.slide h2 {
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.slide p {
+  opacity:0.8;
+}
+
+.slide ul {
+  text-align:left;
+  margin-top:15px;
+}
+
+.slide ul li {
+  margin:8px 0;
+  padding-left:10px;
+  border-left:3px solid #22c55e;
+}
+
+.active {
+  display:block;
+  animation: slideIn 0.6s ease;
+}
+
+@keyframes slideIn {
+  from { opacity:0; transform: translateY(40px) scale(0.95); }
+  to { opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* Navigation */
+.nav-btns {
+  margin-top:20px;
+}
+
+.nav-btns button {
+  padding:10px 18px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  border:none;
+  margin:5px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.nav-btns button:hover {
+  transform: scale(1.1);
+  box-shadow:0 0 15px #22c55e;
+}
+
+/* Progress dots */
+.dots {
+  margin-top:15px;
+}
+
+.dot {
+  height:10px;
+  width:10px;
+  margin:0 4px;
+  display:inline-block;
+  border-radius:50%;
+  background:#555;
+  transition:0.3s;
+}
+
+.dot.active-dot {
+  background:#22c55e;
+  transform:scale(1.4);
+}
+
+/* ===== Architecture Diagram ===== */
+.arch-diagram {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.node {
+  padding: 12px 18px;
+  background: #1e293b;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.node:hover {
+  background: #22c55e;
+  color: black;
+  transform: scale(1.08);
+}
+
+#archInfo {
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
+.redirect {
+  color:rgb(192, 126, 4);
+  text-decoration: none;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<header>
-  <h1>Interactive System Flow</h1>
-  <a href="index.html" class="btn">← Back</a>
+<header class="navbar">
+  <div class="logo">AURA 🤖</div>
+  <nav>
+    <a class = "redirect" href="index.html">🏠Home</a>
+  </nav>
 </header>
 
-<section>
-  <h2>Live Call Simulation</h2>
+<div class="section">
+<h1>🧠 AURA Deep Dive</h1>
+<p>Explore how each component works in a real production system</p>
 
-  <div style="display:flex; align-items:center;">
-    <div class="phone">📞</div>
-    <div id="chat1" class="chat">
-      "Hi, I want to book a dentist appointment tomorrow morning."
-    </div>
-  </div>
+<!-- SLIDES -->
 
-</section>
+<div class="slide active">
+<h2>🎙️ Voice AI Layer</h2>
+<p>Handles calls, understands natural language, manages conversations.</p>
+<ul>
+<li>Amazon Connect (Telephony)</li>
+<li>Amazon Lex (Intent recognition)</li>
+<li>Amazon Bedrock (LLM reasoning)</li>
+</ul>
+</div>
 
-<section id="flowSection">
-  <h2>What Happens Behind the Scenes</h2>
+<div class="slide">
+<h2>📅 Smart Scheduling</h2>
+<p>Optimizes slot allocation using intelligent scoring.</p>
+<ul>
+<li>Google Calendar API</li>
+<li>AWS Lambda logic</li>
+</ul>
+</div>
 
-  <div class="flow-container">
+<div class="slide">
+<h2>📉 No-Show AI</h2>
+<p>Predicts missed appointments and triggers actions.</p>
+<ul>
+<li>Rule-based scoring (MVP)</li>
+<li>Future ML model</li>
+</ul>
+</div>
 
-    <div class="step step-box" id="step1">
-      🤖 <strong>AI Understands Intent</strong><br>
-      Detects: Book Appointment
-    </div>
-    <div class="arrow">⬇️</div>
+<div class="slide">
+<h2>🔁 Waitlist Automation</h2>
+<p>Auto-fills cancelled slots via outbound calls.</p>
+<ul>
+<li>AWS Lambda triggers</li>
+<li>Amazon Connect outbound</li>
+</ul>
+</div>
 
-    <div class="step step-box" id="step2">
-      📅 <strong>Extracts Details</strong><br>
-      Date: Tomorrow<br>
-      Time: Morning
-    </div>
-    <div class="arrow">⬇️</div>
+<div class="slide">
+<h2>🌍 Multilingual AI</h2>
+<p>Supports regional + mixed language conversations.</p>
+<ul>
+<li>Amazon Lex multi-language</li>
+<li>Bedrock language understanding</li>
+</ul>
+</div>
 
-    <div class="step step-box" id="step3">
-      ⚙️ <strong>Lambda Processes Request</strong><br>
-      Converts natural language → exact datetime
-    </div>
-    <div class="arrow">⬇️</div>
+<div class="slide">
+<h2>⚙️ Backend System</h2>
+<ul>
+<li>Spring Boot / Node.js APIs</li>
+<li>PostgreSQL database</li>
+<li>Redis (optional caching)</li>
+</ul>
+</div>
 
-    <div class="step step-box" id="step4">
-      📆 <strong>Checks Calendar</strong><br>
-      Finds available slots
-    </div>
-    <div class="arrow">⬇️</div>
+<!-- NAVIGATION -->
+<div class="nav-btns">
+<button onclick="prevSlide()">⬅ Prev</button>
+<button onclick="nextSlide()">Next ➡</button>
+</div>
 
-    <div class="step step-box" id="step5">
-      💬 <strong>AI Responds</strong><br>
-      "I have 10:30 AM available. Confirm?"
-    </div>
-    <div class="arrow">⬇️</div>
 
-    <div class="step step-box" id="step6">
-      ✅ <strong>Booking Confirmed</strong><br>
-      Appointment saved + reminder scheduled
-    </div>
+<!-- INTERACTIVE ARCHITECTURE -->
+<h2 style="margin-top:60px;">⚡ Interactive Architecture</h2>
+<div class="arch-diagram">
+<div class="node" onclick="showInfo('connect')">Connect</div>
+<div class="node" onclick="showInfo('lex')">Lex</div>
+<div class="node" onclick="showInfo('lambda')">Lambda</div>
+<div class="node" onclick="showInfo('backend')">Backend</div>
+<div class="node" onclick="showInfo('db')">Database</div>
+</div>
 
-  </div>
-</section>
+<p id="archInfo">Click a component to learn more</p>
+
+
+<!-- LIVE SYSTEM LOGS -->
+<h2 style="margin-top:60px;">🧪 Live System Simulation</h2>
+<div class="log-box" id="logs"></div>
+<button onclick="runDemo()">Run Demo</button>
+
+</div>
 
 <script>
-// Step 1: show chat after phone rings
-setTimeout(() => {
-  document.getElementById("chat1").style.display = "block";
-}, 1000);
+let slides = document.querySelectorAll('.slide');
+let index = 0;
 
-// Sequential animation of steps
-const steps = document.querySelectorAll(".step");
+function showSlide(i){
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[i].classList.add('active');
+}
 
-steps.forEach((step, index) => {
-  setTimeout(() => {
-    step.classList.add("visible");
-  }, 2000 + index * 1000);
-});
+function nextSlide(){
+  index = (index+1)%slides.length;
+  showSlide(index);
+}
+
+function prevSlide(){
+  index = (index-1+slides.length)%slides.length;
+  showSlide(index);
+}
+
+function showInfo(type){
+  let info = {
+    connect:'Handles calls and routing',
+    lex:'Understands user intent',
+    lambda:'Executes business logic',
+    backend:'Processes APIs and data',
+    db:'Stores users and appointments'
+  };
+  document.getElementById('archInfo').innerText = info[type];
+}
+
+function log(msg){
+  let box = document.getElementById('logs');
+  box.innerHTML += msg + '<br>';
+  box.scrollTop = box.scrollHeight;
+}
+
+function runDemo(){
+  document.getElementById('logs').innerHTML = '';
+  setTimeout(()=>log('📞 Incoming call...'),500);
+  setTimeout(()=>log('🤖 AI greeting user...'),1200);
+  setTimeout(()=>log('🧠 Parsing intent...'),2000);
+  setTimeout(()=>log('📅 Checking availability...'),3000);
+  setTimeout(()=>log('✅ Slot booked successfully!'),4000);
+}
 </script>
 
 </body>
